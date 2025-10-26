@@ -1,0 +1,156 @@
+<!-- ...existing code... -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Square Clock</title>
+    <style>
+        body{
+             display:flex;
+             flex-direction:column;
+             justify-content:center;
+             align-items:center;
+             height:100vh;
+             background-color: rgb(253, 248, 179);
+             margin:0;
+        }
+        .clock{
+            width:300px;
+            height:300px;
+            border-radius:10%;
+            position:relative;
+            box-shadow:0 0 10px rgb(22, 18, 21);
+            background-color:rgb(248, 156, 213);
+        }
+        .clock .clock-bg{
+             position: absolute;
+             inset: 0;
+        top:50%;
+         left:50%;
+         width:80%;           
+         height:80%;
+         transform: translate(-50%,-50%);
+         object-fit: cover;
+         border-radius: 10%;
+         z-index: 1;
+         box-shadow: 0 0 10px rgba(71, 71, 71, 0.25);
+}
+
+        .number{
+            position:absolute;
+            font-size:18px;
+            font-style:normal;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight:bold;
+            color:rgb(10, 8, 8);
+            width:auto;
+            height:auto;
+            padding:2px 4px;
+            transform:none;
+        }
+        .number { z-index: 5; }
+.hand   { z-index: 6; }
+.center { z-index: 7; }
+
+        /* Place numbers along the square perimeter */
+        .number-12 { top:10px; left:50%; transform:translateX(-50%); }
+        .number-1  { top:10px; left:75%; transform:translateX(-50%); }
+        .number-2  { top:25%; right:10px; transform:translateY(-50%); }
+        .number-3  { top:50%; right:10px; transform:translateY(-50%); }
+        .number-4  { top:75%; right:10px; transform:translateY(-50%); }
+        .number-5  { bottom:10px; left:75%; transform:translateX(-50%); }
+        .number-6  { bottom:10px; left:50%; transform:translateX(-50%); }
+        .number-7  { bottom:10px; left:25%; transform:translateX(-50%); }
+        .number-8  { top:75%; left:10px; transform:translateY(-50%); }
+        .number-9  { top:50%; left:10px; transform:translateY(-50%); }
+        .number-10 { top:25%; left:10px; transform:translateY(-50%); }
+        .number-11 { top:10px; left:25%; transform:translateX(-50%); }
+
+    .center{
+        width:15px;
+        height:15px;
+        background:black;
+        border-radius:50%;
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        z-index:10;
+    }
+    .hand{
+        position:absolute;
+        left:50%;
+        bottom:50%;
+        transform-origin:bottom center;
+       border-radius:5px;
+    }
+    .hour{
+        width:6px;
+        height:70px;
+        background:rgb(3, 110, 143);
+        z-index:5;
+    }
+    .minute{
+        background:rgb(51, 50, 50);
+        height:100px;
+        width:4px;
+        z-index:7;
+    }
+    .second{
+        background:red;
+        width:2px;
+        height:120px;
+        z-index:9;
+    }
+.hand{
+    transform:translate(-50%,0) rotate(0deg);
+}
+    </style>
+    </head>
+    <body>
+        <div class="clock">
+<img src="./images/890d28e0-e422-477c-bb3f-ad63e67833c1.jpg" alt="Clock background" class="clock-bg">            
+             <div class="number number-1"><span>1</span></div>
+            <div class="number number-2"><span>2</span></div>
+            <div class="number number-3"><span>3</span></div>
+            <div class="number number-4"><span>4</span></div>
+            <div class="number number-5"><span>5</span></div>
+            <div class="number number-6"><span>6</span></div>
+            <div class="number number-7"><span>7</span></div>
+            <div class="number number-8"><span>8</span></div>
+            <div class="number number-9"><span>9</span></div>
+            <div class="number number-10"><span>10</span></div>
+            <div class="number number-11"><span>11</span></div>
+            <div class="number number-12"><span>12</span></div>
+            <div class="hand hour" id="hour-hand"></div>
+            <div class="hand minute" id="minute-hand"></div>
+            <div class="hand second" id="second-hand"></div>
+            <div class="center"></div>
+        </div>
+        <script>
+            const secondhand = document.getElementById("second-hand");
+            const minutehand = document.getElementById("minute-hand");
+            const hourhand = document.getElementById("hour-hand");
+
+            function updateclock() {
+             const now = new Date();
+             const hours = now.getHours();
+             const minutes = now.getMinutes();
+             const seconds = now.getSeconds();
+             
+             const secondDegree = seconds * 6;
+             const minuteDegree = (minutes * 6) + (seconds * 0.1);
+             const formattedHours = hours % 12;
+             const hoursDegree = (formattedHours * 30) + (minutes * 0.5);
+
+             secondhand.style.transform = `translate(-50%,0) rotate(${secondDegree}deg)`;
+             minutehand.style.transform = `translate(-50%,0) rotate(${minuteDegree}deg)`;
+             hourhand.style.transform = `translate(-50%,0) rotate(${hoursDegree}deg)`;
+            }
+
+        updateclock();
+        const intervalID = setInterval(updateclock, 1000);
+        </script>
+
+    </body>
+</html
